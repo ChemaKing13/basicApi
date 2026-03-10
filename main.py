@@ -1,7 +1,7 @@
 from random import randint
 from fastapi import FastAPI
 from datetime import datetime
-from fastapi import HTTPException, Request
+from fastapi import HTTPException, Request, Response
 from typing import Any
 
 
@@ -78,5 +78,15 @@ async def update_camping(id: int, body: dict[str, Any]):
             return {"campaign": updated}
 
     raise  HTTPException(status_code=404)
-    
 
+
+
+    
+@app.delete("/campaigns/{id}")
+async def update_campign(id: int): 
+
+    for index, campaign in enumerate(data): 
+        if campaign.get("campaign_id") == id:
+            data.pop(index)
+            return Response(status_code=204)
+    raise HTTPException(status_code=404)
